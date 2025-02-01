@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agustin Dev - V2 - Portfolio</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --dark: #212529;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --accent: #0a58ca;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Navbar Enhancements */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar-brand::before {
+            content: '';
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary);
+            border-radius: 50%;
+            left: -0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.1;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover::before {
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 0.25rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            color: var(--dark) !important;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary) !important;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .nav-link.active {
+            color: var(--primary) !important;
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem;
+                border-radius: 1rem;
+                margin-top: 1rem;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(45deg, var(--primary), #0a58ca);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm63 31c1.657 0 3-1.343 3-3s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM34 90c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .section-padding {
+            padding: 120px 0;
+        }
+        
+        .timeline-item {
+            border-left: 3px solid var(--primary);
+            padding: 2rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+        }
+        
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+        
+        .contact-info i {
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--primary);
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info:hover i {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .social-links a {
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .btn:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+            outline: none;
+        }
+
+        .btn-light {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+        }
+
+        .btn-light:hover {
+            background: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Add tab index indicators */
+        .btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Skill card animations fix */
+        .skill-card {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card.animate-up {
+            opacity: 1;
+        }
+
+        /* Mouse position effect for code window */
+        .code-window.moving {
+            transition: transform 0.1s ease;
+        }
+
+        .animate-up {
+            opacity: 1; /* Changed from 0 to prevent white flash */
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+            will-change: transform, opacity; /* Optimize performance */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Code Window Enhanced 3D Effect */
+        .hero-graphic {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .code-window {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            transform: rotateY(-10deg) rotateX(5deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .code-window:hover {
+            transform: rotateY(-5deg) rotateX(2deg) scale(1.02);
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 0 0 10px 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            transform: scale(1.1);
+        }
+
+        .dot-close {
+            background: #ff605c;
+            box-shadow: 0 0 10px rgba(255, 96, 92, 0.3);
+        }
+
+        .dot-minimize {
+            background: #ffbd44;
+            box-shadow: 0 0 10px rgba(255, 189, 68, 0.3);
+        }
+
+        .dot-expand {
+            background: #00ca4e;
+            box-shadow: 0 0 10px rgba(0, 202, 78, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            animation: float 20s infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 50%;
+            right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Portfolio Section Styles */
+        .portfolio-filters {
+            display: inline-flex;
+            background: var(--light);
+            padding: 0.5rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-filter-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            background: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .portfolio-filter-btn:hover:not(.active) {
+            color: var(--primary);
+        }
+
+        .portfolio-item {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-img {
+            aspect-ratio: 16/9;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 2rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-category {
+            font-size: 0.875rem;
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-links {
+            margin-top: 1rem;
+        }
+
+        .portfolio-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-links a:hover {
+            opacity: 1;
+        }
+
+        .section-title-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Skills and Experience Styles */
+        .skills-category {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .skills-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .skills-list li i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--primary);
+            opacity: 0.2;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            background: rgba(13, 110, 253, 0.1);
+            border-radius: 50px;
+        }
+
+        .timeline-title {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-company {
+            color: var(--secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .education-year {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-degree {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            color: var(--secondary);
+            font-size: 0.875rem;
+        }
+
+        .section-vector {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.1;
+            width: 200px;
+            height: auto;
+            z-index: 0;
+        }
+
+        /* Enhanced Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        .timeline-title {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .timeline-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            border-radius: 2px;
+        }
+
+        .timeline-company {
+            background: rgba(13, 110, 253, 0.1);
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-company i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .timeline-content {
+            position: relative;
+            padding: 1rem;
+            background: rgba(13, 110, 253, 0.05);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-skill-tag {
+            padding: 0.25rem 1rem;
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Enhanced Education Styles */
+        .education-card {
+            position: relative;
+            padding: 2rem;
+            background: linear-gradient(135deg, white, #f8f9fa);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .education-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+        }
+
+        .education-year {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .education-degree {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .education-school {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .education-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+        }
+
+        .education-badge {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-code me-2"></i>Agustin Dev
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">
+                            <i class="fas fa-home me-2"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sobre-mi">
+                            <i class="fas fa-user me-2"></i>Sobre Mí
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#habilidades">
+                            <i class="fas fa-code me-2"></i>Habilidades
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experiencia">
+                            <i class="fas fa-briefcase me-2"></i>Experiencia
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#educacion">
+                            <i class="fas fa-graduation-cap me-2"></i>Educación
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">
+                            <i class="fas fa-briefcase me-2"></i>Portfolio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">
+                            <i class="fas fa-envelope me-2"></i>Contacto
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero d-flex align-items-center">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-lg-start text-center">
+                    <span class="badge bg-light text-primary mb-4 animate-up">Frontend Developer</span>
+                    <h1 class="display-3 fw-bold mb-4 text-light animate-up">Transformando Ideas en <span class="gradient-text">Experiencias Digitales</span></h1>
+                    <p class="lead mb-5 fw-normal text-light opacity-75 animate-up">Especializado en desarrollo web frontend & diseño UI/UX, creando interfaces modernas y experiencias de usuario excepcionales.</p>
+                    <div class="d-flex gap-3 justify-content-lg-start justify-content-center animate-up">
+                        <a href="#contacto" class="btn btn-light btn-lg rounded-pill px-5 shadow-sm" tabindex="1">
+                            <i class="fas fa-paper-plane me-2"></i>Contáctame
+                        </a>
+                        <a href="#portfolio" class="btn btn-outline-light btn-lg rounded-pill px-5" tabindex="2">
+                            <i class="fas fa-eye me-2"></i>Ver Proyectos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block text-center">
+                    <div class="hero-graphic">
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span class="dot dot-close" title="Close"></span>
+                                <span class="dot dot-minimize" title="Minimize"></span>
+                                <span class="dot dot-expand" title="Expand"></span>
+                            </div>
+                            <div class="code-content text-white">
+                                <pre><code>const developer = {
+  name: "Agustin",
+  role: "Frontend Developer",
+  loves: ["React", "UI/UX", "Clean Code"],
+  currentlyLearning: "Always something new"
+};</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animated Background Elements -->
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path fill="#ffffff" fill-opacity="1" d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,42.7C960,43,1056,53,1152,53.3C1248,53,1344,43,1392,37.3L1440,32L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z"></path>
+        </svg>
+    </div>
+
+    <!-- Skills Section -->
+    <section id="habilidades" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h6 class="text-primary fw-bold mb-3 animate-up">HABILIDADES</h6>
+                    <div class="section-title-wrapper">
+                        <h2 class="fw-bold mb-4 animate-up">Mis Especialidades</h2>
+                    </div>
+                    <p class="text-muted animate-up">Combinando creatividad y tecnología para crear experiencias digitales excepcionales.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="skills-category animate-up">
+                        <div class="skills-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 class="mb-4">Desarrollo Frontend</h4>
+                        <ul class="skills-list">
+                            <li><i class="fas fa-check-circle"></i>HTML5 & CSS3</li>
+                            <li><i class="fas fa-check-circle"></i>JavaScript (ES6+)</li>
+                            <li><i class="fas fa-check-circle"></i>React.js</li>
+                            <li><i class="fas fa-check-circle"></i>Vue.js</li>
+                            <li><i class="fas fa-check-circle"></i>Responsive Design</li>
+                        </ul>
+                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg" alt="Frontend Vector" class="section-vector">
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="skills-category animate-up">
+                        <div class="skills-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4 class="mb-4">Diseño UX/UI</h4>
+                        <ul class="skills-list">
+                            <li><i class="fas fa-check-circle"></i>Figma</li>
+                            <li><i class="fas fa-check-circle"></i>Adobe XD</li>
+                            <li><i class="fas fa-check-circle"></i>Wireframing</li>
+                            <li><i class="fas fa-check-circle"></i>Prototyping</li>
+                            <li><i class="fas fa-check-circle"></i>Design Systems</li>
+                        </ul>
+                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/figma.svg" alt="Design Vector" class="section-vector">
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="skills-category animate-up">
+                        <div class="skills-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h4 class="mb-4">Herramientas & Otros</h4>
+                        <ul class="skills-list">
+                            <li><i class="fas fa-check-circle"></i>Git & GitHub</li>
+                            <li><i class="fas fa-check-circle"></i>VS Code</li>
+                            <li><i class="fas fa-check-circle"></i>npm/yarn</li>
+                            <li><i class="fas fa-check-circle"></i>Terminal</li>
+                            <li><i class="fas fa-check-circle"></i>Metodologías Ágiles</li>
+                        </ul>
+                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/git.svg" alt="Tools Vector" class="section-vector">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experiencia" class="section-padding bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h6 class="text-primary fw-bold mb-3 animate-up">EXPERIENCIA</h6>
+                    <div class="section-title-wrapper">
+                        <h2 class="fw-bold mb-4 animate-up">Trayectoria Profesional</h2>
+                    </div>
+                    <p class="text-muted animate-up">Mi camino en el mundo del desarrollo web y diseño digital.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item animate-up">
+                            <span class="timeline-date">2023 - Presente</span>
+                            <h4 class="timeline-title">Frontend Developer</h4>
+                            <div class="timeline-company">
+                                <i class="fas fa-building"></i>Empresa Tecnológica
+                            </div>
+                            <div class="timeline-content">
+                                <p class="mb-3">Desarrollo de aplicaciones web modernas utilizando React.js y Vue.js. Implementación de diseños responsivos y optimización de rendimiento.</p>
+                                <div class="timeline-skills">
+                                    <span class="timeline-skill-tag">React.js</span>
+                                    <span class="timeline-skill-tag">Vue.js</span>
+                                    <span class="timeline-skill-tag">TypeScript</span>
+                                    <span class="timeline-skill-tag">UI/UX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item animate-up">
+                            <span class="timeline-date">2022 - 2023</span>
+                            <h4 class="timeline-title">UI/UX Designer</h4>
+                            <div class="timeline-company">
+                                <i class="fas fa-building"></i>Agencia Digital
+                            </div>
+                            <div class="timeline-content">
+                                <p class="mb-3">Diseño de interfaces de usuario y experiencias de usuario para aplicaciones web y móviles. Creación de prototipos y sistemas de diseño.</p>
+                                <div class="timeline-skills">
+                                    <span class="timeline-skill-tag">Figma</span>
+                                    <span class="timeline-skill-tag">Adobe XD</span>
+                                    <span class="timeline-skill-tag">Prototyping</span>
+                                    <span class="timeline-skill-tag">Design Systems</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item animate-up">
+                            <span class="timeline-date">2021 - 2022</span>
+                            <h4 class="timeline-title">Web Developer Jr.</h4>
+                            <div class="timeline-company">
+                                <i class="fas fa-building"></i>Startup Tech
+                            </div>
+                            <div class="timeline-content">
+                                <p class="mb-3">Desarrollo de sitios web responsivos y mantenimiento de aplicaciones existentes. Colaboración en proyectos de e-commerce.</p>
+                                <div class="timeline-skills">
+                                    <span class="timeline-skill-tag">HTML5</span>
+                                    <span class="timeline-skill-tag">CSS3</span>
+                                    <span class="timeline-skill-tag">JavaScript</span>
+                                    <span class="timeline-skill-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="educacion" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h6 class="text-primary fw-bold mb-3 animate-up">EDUCACIÓN</h6>
+                    <div class="section-title-wrapper">
+                        <h2 class="fw-bold mb-4 animate-up">Formación Académica</h2>
+                    </div>
+                    <p class="text-muted animate-up">Mi preparación académica y certificaciones profesionales.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="education-card animate-up">
+                        <div class="education-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="education-year">2019 - 2023</div>
+                        <h4 class="education-degree">Ingeniería en Sistemas</h4>
+                        <div class="education-school">
+                            <i class="fas fa-university"></i>Universidad Nacional
+                        </div>
+                        <div class="education-details">
+                            <p class="text-muted mb-2">Especialización en Desarrollo de Software y Sistemas</p>
+                            <span class="education-badge">Promedio Destacado</span>
+                        </div>
+                    </div>
+
+                    <div class="education-card animate-up">
+                        <div class="education-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="education-year">2023</div>
+                        <h4 class="education-degree">Certificación en UX/UI Design</h4>
+                        <div class="education-school">
+                            <i class="fas fa-certificate"></i>Google UX Design Professional Certificate
+                        </div>
+                        <div class="education-details">
+                            <p class="text-muted mb-2">Diseño de experiencias de usuario y interfaces</p>
+                            <span class="education-badge">Certificación Profesional</span>
+                        </div>
+                    </div>
+
+                    <div class="education-card animate-up">
+                        <div class="education-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="education-year">2022</div>
+                        <h4 class="education-degree">Frontend Web Development</h4>
+                        <div class="education-school">
+                            <i class="fas fa-certificate"></i>freeCodeCamp
+                        </div>
+                        <div class="education-details">
+                            <p class="text-muted mb-2">Desarrollo web frontend y responsive design</p>
+                            <span class="education-badge">300+ horas de práctica</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h6 class="text-primary fw-bold mb-3 animate-up">PORTFOLIO</h6>
+                    <div class="section-title-wrapper">
+                        <h2 class="fw-bold mb-4 animate-up">Mis Proyectos</h2>
+                    </div>
+                    <p class="text-muted animate-up">Una selección de mis mejores trabajos en desarrollo web y diseño UX/UI.</p>
+                    
+                    <div class="portfolio-filters animate-up">
+                        <button class="portfolio-filter-btn active" data-filter="all">Todos</button>
+                        <button class="portfolio-filter-btn" data-filter="web">Desarrollo Web</button>
+                        <button class="portfolio-filter-btn" data-filter="ux">UX/UI Design</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Web Development Projects -->
+                <div class="col-lg-4 col-md-6 portfolio-item web animate-up">
+                    <img src="https://thumbs.dreamstime.com/b/proyectos-sobre-carpeta-de-la-oficina-imagen-enmascarada-d-77542039.jpg" alt="E-commerce Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Desarrollo Web</span>
+                        <h5 class="mb-2">E-commerce Website</h5>
+                        <p class="mb-3">Plataforma de comercio electrónico desarrollada con React y Node.js</p>
+                        <div class="portfolio-links">
+                            <a href="#" target="_blank"><i class="fas fa-link me-2"></i>Ver Proyecto</a>
+                            <a href="#" target="_blank"><i class="fab fa-github me-2"></i>GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item web animate-up">
+                    <img src="https://thumbs.dreamstime.com/b/proyectos-sobre-carpeta-de-la-oficina-imagen-enmascarada-d-77542039.jpg" alt="Dashboard App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Desarrollo Web</span>
+                        <h5 class="mb-2">Dashboard Analytics</h5>
+                        <p class="mb-3">Dashboard interactivo con visualización de datos en tiempo real</p>
+                        <div class="portfolio-links">
+                            <a href="#" target="_blank"><i class="fas fa-link me-2"></i>Ver Proyecto</a>
+                            <a href="#" target="_blank"><i class="fab fa-github me-2"></i>GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UX/UI Design Projects -->
+                <div class="col-lg-4 col-md-6 portfolio-item ux animate-up">
+                    <img src="https://thumbs.dreamstime.com/b/proyectos-sobre-carpeta-de-la-oficina-imagen-enmascarada-d-77542039.jpg" alt="Mobile App Design" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">UX/UI Design</span>
+                        <h5 class="mb-2">Finance App</h5>
+                        <p class="mb-3">Diseño de aplicación móvil para gestión financiera personal</p>
+                        <div class="portfolio-links">
+                            <a href="#" target="_blank"><i class="fab fa-behance me-2"></i>Behance</a>
+                            <a href="#" target="_blank"><i class="fab fa-dribbble me-2"></i>Dribbble</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item ux animate-up">
+                    <img src="https://thumbs.dreamstime.com/b/proyectos-sobre-carpeta-de-la-oficina-imagen-enmascarada-d-77542039.jpg" alt="Website Redesign" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">UX/UI Design</span>
+                        <h5 class="mb-2">Travel Platform</h5>
+                        <p class="mb-3">Rediseño de plataforma de reservas de viajes</p>
+                        <div class="portfolio-links">
+                            <a href="#" target="_blank"><i class="fab fa-behance me-2"></i>Behance</a>
+                            <a href="#" target="_blank"><i class="fab fa-dribbble me-2"></i>Dribbble</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Portfolio Filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.portfolio-filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section-padding bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h6 class="text-primary fw-bold mb-3">CONTACTO</h6>
+                    <h2 class="fw-bold mb-4">¡Hablemos!</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card h-100 p-4">
+                        <div class="contact-info">
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Email</h5>
+                                    <p class="mb-0"><a href="mailto:agustin@mail.com" class="text-muted text-decoration-none">agustin@mail.com</a></p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="fab fa-github"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-1">GitHub</h5>
+                                    <p class="mb-0"><a href="#" class="text-muted text-decoration-none">github.com/tuusuario</a></p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fab fa-linkedin"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-1">LinkedIn</h5>
+                                    <p class="mb-0"><a href="#" class="text-muted text-decoration-none">linkedin.com/in/tuusuario</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card p-4">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Tu Nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Tu Email" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="5" placeholder="Tu Mensaje" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary rounded-pill w-100">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="social-links mb-4">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <p class="mb-0">&copy; 2024 Agustin Dev. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('navbar-scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeWindow = document.querySelector('.code-window');
+            const heroGraphic = document.querySelector('.hero-graphic');
+
+            if (codeWindow && heroGraphic) {
+                heroGraphic.addEventListener('mousemove', function(e) {
+                    const rect = heroGraphic.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    const rotateX = ((centerY - y) / centerY) * 15;
+
+                    codeWindow.classList.add('moving');
+                    codeWindow.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.02)`;
+                });
+
+                heroGraphic.addEventListener('mouseleave', function() {
+                    codeWindow.classList.remove('moving');
+                    codeWindow.style.transform = 'rotateY(-10deg) rotateX(5deg)';
+                });
+            }
+
+            // Fix for animation white flash
+            const animatedElements = document.querySelectorAll('.animate-up');
+            animatedElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 100}ms`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('navbar-scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeWindow = document.querySelector('.code-window');
+            const heroGraphic = document.querySelector('.hero-graphic');
+
+            if (codeWindow && heroGraphic) {
+                heroGraphic.addEventListener('mousemove', function(e) {
+                    const rect = heroGraphic.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    const rotateX = ((centerY - y) / centerY) * 15;
+
+                    codeWindow.classList.add('moving');
+                    codeWindow.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.02)`;
+                });
+
+                heroGraphic.addEventListener('mouseleave', function() {
+                    codeWindow.classList.remove('moving');
+                    codeWindow.style.transform = 'rotateY(-10deg) rotateX(5deg)';
+                });
+            }
+
+            // Fix for animation white flash
+            const animatedElements = document.querySelectorAll('.animate-up');
+            animatedElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 100}ms`;
+            });
+        });
+    </script>
+</body>
+</html>
